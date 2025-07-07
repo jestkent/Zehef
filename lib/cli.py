@@ -6,11 +6,10 @@ from .emails_gen import Email_Gen
 from modules import *   
 
 
-async def parser():
+async def parser(email_arg=None):
     await Version_Checker.checker()
 
     parser = argparse.ArgumentParser()
-
     parser.add_argument(
         "email",
         nargs="?",
@@ -19,7 +18,10 @@ async def parser():
         help="Search informations on email (breaches, pastes, accounts ...)"
     )
 
-    args = parser.parse_args()
+    if email_arg is not None:
+        args = parser.parse_args([email_arg])
+    else:
+        args = parser.parse_args()
 
     if args.email:
         target = args.email
